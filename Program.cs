@@ -7,23 +7,12 @@ public class JukeboxProofOfConcept
 {
     static void Main(string[] args)
     {
-        Melody melody = Melody.GetTetrisA(70);
+        Melody melody = Melody.GetTetrisA(140);
 
-        var coords = Console.GetCursorPosition();
-
-        // Console.CursorVisible = false;
-
-        for (int i = 1; i <= 4; i++)
-        {
-            Console.SetCursorPosition(coords.Item1, coords.Item2);
-            Console.Write(i);
-            Thread.Sleep(melody.Mpsb);
-        }
-
-        Play(melody);
+        Play(melody, true);
     }
 
-    static void Play(Melody melody)
+    static void Play(Melody melody, bool verbose = false)
     {
         var tune = melody.Tune;
         int mpsb = melody.Mpsb;
@@ -31,10 +20,15 @@ public class JukeboxProofOfConcept
         foreach (var tone in tune)
         {
             int freq = (int)tone.Item1;
-            int time = (int)tone.Item2 * mpsb;
+            freq = freq >= 37 ? freq : 0;
+            int time = (int)((int)tone.Item2 * mpsb * 1.0);
 
-            if (freq >= 37)
+            if (verbose) Console.WriteLine($"Hz:{freq}, Ms: {time}");
+
+            if (freq != 0)
+            {
                 Console.Beep(freq, time);
+            }
             else
                 Thread.Sleep(time);
         }
