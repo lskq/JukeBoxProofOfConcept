@@ -1,4 +1,4 @@
-namespace Tetris.View;
+namespace JukeboxProofOfConcept;
 
 enum Scale
 {
