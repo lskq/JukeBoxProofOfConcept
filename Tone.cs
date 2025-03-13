@@ -1,7 +1,22 @@
 namespace JukeboxProofOfConcept;
 
-enum Scale
+public enum Tone
 {
+    Rest = 1,
+    HalfRest = 2,
+    QuarterRest = 4,
+    EighthRest = 8,
+    SixteenthRest = 16,
+    D1 = 37,
+    Ds1 = 39,
+    E1 = 42,
+    F1 = 44,
+    Fs1 = 46,
+    G1 = 49,
+    Gs1 = 52,
+    A1 = 55,
+    As1 = 58,
+    B1 = 62,
     C2 = 65,
     Cs2 = 69,
     D2 = 73,
@@ -37,5 +52,17 @@ enum Scale
     Gs4 = 415,
     A4 = 400,
     As4 = 466,
-    B4 = 494
+    B4 = 494,
+    C5 = 523,
+    Cs5 = 554,
+    D5 = 587,
+    Ds5 = 622,
+    E5 = 659,
+    F5 = 698,
+    Fs5 = 740,
+    G5 = 784,
+    Gs5 = 831,
+    A5 = 880,
+    As5 = 932,
+    B5 = 988
 }
