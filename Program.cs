@@ -6,7 +6,7 @@ public class JukeboxProofOfConcept
     {
         Melody melody = Melody.GetTetrisA(140);
 
-        if (args.Length > 0 && (args[0] == "-a" || args[0] == "-anim"))
+        if (args.Length > 0 && "animation".StartsWith(args[0][1..]))
         {
             var (left, top) = Console.GetCursorPosition();
 
@@ -19,7 +19,7 @@ public class JukeboxProofOfConcept
             await animTask;
             await playTask;
         }
-        else if (args.Length > 0 && (args[0] == "-v" || args[0] == "-verbose"))
+        else if (args.Length > 0 && "verbose".StartsWith(args[0][1..]))
         {
             _ = Play(melody, true);
         }
