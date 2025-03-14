@@ -9,28 +9,32 @@ public class JukeboxProofOfConcept
     {
         Melody melody = Melody.GetTetrisA(140);
 
-        if (args.Length > 0 && args.Contains("-v") || args.Contains("-verbose"))
-        {
-            _ = Play(melody, true);
-        }
-        else
+        if (args.Length > 0 && (args[0] == "-a" || args[0] == "-anim"))
         {
             var (left, top) = Console.GetCursorPosition();
 
             //await Anim(left, top);
             //await Play(melody, false);
 
-            var animTask = Anim(left, top);
+            var animTask = Anim(left, top, 4);
             var playTask = Play(melody, false);
 
             await animTask;
             await playTask;
         }
+        else if (args.Length > 0 && (args[0] == "-v" || args[0] == "-verbose"))
+        {
+            _ = Play(melody, true);
+        }
+        else
+        {
+            _ = Play(melody, false);
+        }
 
-        static async Task Anim(int left, int top)
+        static async Task Anim(int left, int top, int loops = 1)
         {
             char[] frames = ['/', '—', '\\', '|'];
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < loops; i++)
             {
                 foreach (char frame in frames)
                 {
