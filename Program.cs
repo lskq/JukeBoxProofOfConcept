@@ -1,7 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace JukeboxProofOfConcept;
-
+﻿namespace JukeboxProofOfConcept;
 
 public class JukeboxProofOfConcept
 {
