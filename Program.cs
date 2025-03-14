@@ -5,8 +5,6 @@ namespace JukeboxProofOfConcept;
 
 public class JukeboxProofOfConcept
 {
-    static bool Async = true;
-
     static async Task Main(string[] args)
     {
         Melody melody = Melody.GetTetrisA(140);
@@ -29,7 +27,7 @@ public class JukeboxProofOfConcept
         }
         else
         {
-            _ = Play(melody, true);
+            _ = Play(melody, verbose);
         }
     }
 
