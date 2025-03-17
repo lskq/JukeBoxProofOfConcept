@@ -1,4 +1,6 @@
-﻿namespace JukeboxProofOfConcept;
+﻿using System.Security.Principal;
+
+namespace JukeboxProofOfConcept;
 
 public class JukeboxProofOfConcept
 {
@@ -8,30 +10,33 @@ public class JukeboxProofOfConcept
 
         var (left, top) = Console.GetCursorPosition();
 
-        //await Anim(left, top);
-        //await Play(melody, false);
+        var source = new CancellationTokenSource();
+        var token = source.Token;
 
-        var animTask = Anim(left, top, 8);
-        var playTask = Play(melody, 2);
+        var animTask = Anim(left, top, token);
+        var playTask = Play(melody, source);
 
         await animTask;
         await playTask;
 
-        static async Task Anim(int left, int top, int loops = 1)
+        static async Task Anim(int left, int top, CancellationToken token)
         {
             char[] frames = ['/', '—', '\\', '|'];
-            for (int i = 0; i < loops; i++)
+            while (true)
             {
                 foreach (char frame in frames)
                 {
                     Console.SetCursorPosition(left, top);
                     Console.Write(frame);
                     await Task.Delay(500);
+
+                    if (token.IsCancellationRequested)
+                        return;
                 }
             }
         }
 
-        static async Task Play(Melody melody, int loops = 1, bool verbose = false)
+        static async Task Play(Melody melody, CancellationTokenSource source, int loops = 1, bool verbose = false)
         {
             var tune = melody.Tune;
             int mpsb = melody.Mpsb;
@@ -54,6 +59,8 @@ public class JukeboxProofOfConcept
                         await Task.Delay(time);
                 }
             }
+
+            source.Cancel();
         }
     }
 }
