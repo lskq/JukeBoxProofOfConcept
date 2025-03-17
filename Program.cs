@@ -1,6 +1,4 @@
-﻿using System.Security.Principal;
-
-namespace JukeboxProofOfConcept;
+﻿namespace JukeboxProofOfConcept;
 
 public class JukeboxProofOfConcept
 {
@@ -13,11 +11,24 @@ public class JukeboxProofOfConcept
         var source = new CancellationTokenSource();
         var token = source.Token;
 
+        var interceptTask = InterceptInput(token);
         var animTask = Anim(left, top, token);
-        var playTask = Play(melody, source);
+        var playTask = Play(melody, source, 1);
 
+        await interceptTask;
         await animTask;
         await playTask;
+
+        static async Task InterceptInput(CancellationToken token)
+        {
+            while (!token.IsCancellationRequested)
+            {
+                if (await Task.Run(() => Console.KeyAvailable))
+                {
+                    await Task.Run(() => Console.ReadKey(true));
+                }
+            }
+        }
 
         static async Task Anim(int left, int top, CancellationToken token)
         {
