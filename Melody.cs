@@ -4,9 +4,9 @@ public class Melody((Tone, Note)[] tune, int bpm)
 {
     public (Tone, Note)[] Tune { get; set; } = tune;
     public int Bpm { get; set; } = bpm;
-    public int Mpsb => 1000 / (Bpm / 60) / 4; // Mps: Milliseconds per sixteenth beat
+    public int Mpsb => 1000 / (Bpm / 60) / 4; // Mpsb: Milliseconds per sixteenth beat
 
-    public static Melody GetTetrisA(int bpm = 140)
+    public static Melody TetrisA(int bpm = 140)
     {
         (Tone, Note)[] tune =
         [

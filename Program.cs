@@ -4,7 +4,7 @@ public class JukeboxProofOfConcept
 {
     static async Task Main(string[] args)
     {
-        Melody melody = Melody.GetTetrisA(140);
+        Melody melody = Melody.TetrisA(140);
 
         var (left, top) = Console.GetCursorPosition();
 
