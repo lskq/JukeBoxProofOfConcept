@@ -11,46 +11,49 @@ public class JukeboxProofOfConcept
         //await Anim(left, top);
         //await Play(melody, false);
 
-        var animTask = Anim(left, top, 4);
-        var playTask = Play(melody, false);
+        var animTask = Anim(left, top, 8);
+        var playTask = Play(melody, 2);
 
         await animTask;
         await playTask;
-    }
 
-    static async Task Anim(int left, int top, int loops = 1)
-    {
-        char[] frames = ['/', '—', '\\', '|'];
-        for (int i = 0; i < loops; i++)
+        static async Task Anim(int left, int top, int loops = 1)
         {
-            foreach (char frame in frames)
+            char[] frames = ['/', '—', '\\', '|'];
+            for (int i = 0; i < loops; i++)
             {
-                Console.SetCursorPosition(left, top);
-                Console.Write(frame);
-                await Task.Delay(500);
+                foreach (char frame in frames)
+                {
+                    Console.SetCursorPosition(left, top);
+                    Console.Write(frame);
+                    await Task.Delay(500);
+                }
             }
         }
-    }
 
-    static async Task Play(Melody melody, bool verbose = false)
-    {
-        var tune = melody.Tune;
-        int mpsb = melody.Mpsb;
-
-        foreach (var tone in tune)
+        static async Task Play(Melody melody, int loops = 1, bool verbose = false)
         {
-            int freq = (int)tone.Item1;
-            freq = freq >= 37 ? freq : 0;
-            int time = (int)((int)tone.Item2 * mpsb * 1.0);
+            var tune = melody.Tune;
+            int mpsb = melody.Mpsb;
 
-            if (verbose) Console.WriteLine($"Hz:{freq}, Ms: {time}");
-
-            if (freq != 0)
+            for (int i = 0; i < loops; i++)
             {
-                Console.Beep(freq, time);
+                foreach (var tone in tune)
+                {
+                    int freq = (int)tone.Item1;
+                    freq = freq >= 37 ? freq : 0;
+                    int time = (int)((int)tone.Item2 * mpsb * 1.0);
+
+                    if (verbose) Console.WriteLine($"Hz:{freq}, Ms: {time}");
+
+                    if (freq != 0)
+                    {
+                        Console.Beep(freq, time);
+                    }
+                    else
+                        await Task.Delay(time);
+                }
             }
-            else
-                await Task.Delay(time);
         }
     }
 }
